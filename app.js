@@ -43,6 +43,7 @@ const answerSchema = new mongoose.Schema({
 })
 
 const forumSchema = new mongoose.Schema({
+  Question_title: String,
   Question : String,
 	Answer : [answerSchema],
   Q_author : String
@@ -56,37 +57,31 @@ const User = mongoose.model("user",userSchema);
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
-
-sampleAnswers1 = new Answers({
-    Solution :"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu ultrices vitae auctor eu augue. Adipiscing enim eu turpis egestas pretium aenean pharetra",
-    A_Author : "kamal",
-    Votes : 10
-})
-sampleAnswers2 = new Answers({
-    Solution :"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu ultrices vitae auctor eu augue. Adipiscing enim eu turpis egestas pretium aenean pharetra",
-    A_Author : "satya",
-    Votes : 11
-})
-
-answers = [sampleAnswers1,sampleAnswers2]
-
-sampleQuestion = new Forum({
-  Question : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu ultrices vitae auctor eu augue. Adipiscing enim eu turpis egestas pretium aenean pharetra",
-  Answer : answers,
-  Q_author : "kamal"
-
+const answer1 = new Answers({
+  Solution : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et leo duis ut diam quam nulla porttitor massa. Id diam vel quam elementum pulvinar etiam non. Adipiscing commodo elit at imperdiet dui. Proin gravida hendrerit lectus a. Orci eu lobortis elementum nibh tellus molestie nunc non blandit. Venenatis cras sed felis eget velit aliquet sagittis id consectetur. Tellus rutrum tellus pellentesque eu tincidunt tortor aliquam. Habitant morbi tristique senectus et. Orci dapibus ultrices in iaculis nunc sed augue.",
+  A_Author : "kamal",
+  Votes: 5
 });
 
-sampleQuestion.save();
+const answer2 = new Answers({
+  Solution : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et leo duis ut diam quam nulla porttitor massa. Id diam vel quam elementum pulvinar etiam non. Adipiscing commodo elit at imperdiet dui. Proin gravida hendrerit lectus a. Orci eu lobortis elementum nibh tellus molestie nunc non blandit. Venenatis cras sed felis eget velit aliquet sagittis id consectetur. Tellus rutrum tellus pellentesque eu tincidunt tortor aliquam. Habitant morbi tristique senectus et. Orci dapibus ultrices in iaculis nunc sed augue.",
+  A_Author : "satya",
+  Votes: 5
+});
 
+const answer3 = new Answers({
+  Solution : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et leo duis ut diam quam nulla porttitor massa. Id diam vel quam elementum pulvinar etiam non. Adipiscing commodo elit at imperdiet dui. Proin gravida hendrerit lectus a. Orci eu lobortis elementum nibh tellus molestie nunc non blandit. Venenatis cras sed felis eget velit aliquet sagittis id consectetur. Tellus rutrum tellus pellentesque eu tincidunt tortor aliquam. Habitant morbi tristique senectus et. Orci dapibus ultrices in iaculis nunc sed augue.",
+  A_Author : "sam",
+  Votes: 6
+});
+
+const answers = [answer1,answer2,answer3]
 
 app.get("/",function(req,res){
   res.render("index");
 });
 
 app.get("/login",function(req,res){
-
   res.render("signin");
 });
 
@@ -94,12 +89,35 @@ app.get("/signup",function(req,res){
   res.render("signup");
 });
 
+
+app.get("/discussions",function(req,res){
+  Forum.find({},function(err,founditems){
+    if(err){
+      console.log(err);
+    }else{
+      res.render("doubts",{questions:founditems})
+    }
+  });
+})
+
+
+app.get("/projectHelp",function(req,res){
+  res.send("project help section");
+})
+
+
+app.get("/compose",function(req,res){
+    res.render("compose")
+})
+
+
 app.post("/login",function(req,res){
   const user = new User({
     username : req.body.username,
     password : req.body.password
-  })
-;
+  });
+
+
 
   req.login(user,function(err){
 
@@ -107,7 +125,7 @@ app.post("/login",function(req,res){
       console.log(err);
     }else{
       passport.authenticate("local")(req,res,function(){
-        console.log(req.user)
+
         res.redirect("/");
       })
     }
@@ -115,6 +133,27 @@ app.post("/login",function(req,res){
 
 
 });
+
+app.post("/compose",function(req,res){
+  if(req.isAuthenticated()){
+    const title = req.body.postTitle;
+    const content = req.body.postBody;
+    const question = new Forum({
+      Question_title : title,
+      Question: content,
+      Q_author: req.user.username
+  })
+  question.save()
+  res.redirect("/discussions")
+  }else{
+    res.redirect("/login")
+  }
+
+  })
+
+
+
+
 
 app.get("/incPoint",function(req,res){
   if(req.isAuthenticated()){
@@ -125,13 +164,34 @@ app.get("/incPoint",function(req,res){
         console.log(err);
       }
     })
-    console.log(req.user);
+
     res.redirect("/")
 
 }else{
   res.redirect("/login")
 }
 })
+
+app.get("/:questionName", function(req, res){
+  const requestedTitle = _.lowerCase(req.params.questionName);
+  Forum.find({},function(err,founditem){
+    founditem.forEach(function(forum){
+      const storedTitle = _.lowerCase(forum.Question);
+
+      if (storedTitle === requestedTitle) {
+
+        res.render("doubtsqa", {
+          question: forum.Question,
+          answers:forum.Answer,
+          id: forum._id
+        });
+
+      }
+    });
+  })
+
+
+});
 
 app.post("/signup",function(req,res){
   User.register({username: req.body.username},req.body.password,function(err,user){
@@ -151,6 +211,46 @@ app.post("/signup",function(req,res){
   });
 });
 
+app.post("/submitans",function(req,res){
+  const ans= new Answers({
+    Solution : req.body.answer,
+    A_Author : req.user,
+    Votes : 0
+  })
+  Forum.findOne({_id:req.body.questionid},function(err,founditem){
+    if(err){
+      console.log(err);
+    }else{
+      founditem.Answer.push(ans)
+      founditem.save()
+      res.redirect("/"+founditem.Question)
+    }
+  })
+});
+
+app.post("/vote",function(req,res){
+  Forum.findOne({_id:req.body.forumid},function(err,founditem){
+    if(err){
+      console.log(err);
+    }else{
+      founditem.Answer.forEach(function(answer){
+        if(String(answer._id)===req.body.answerid){
+          console.log(answer.Votes);
+          answer.Votes++;
+          console.log(answer.Votes);
+          founditem.save()
+        }
+
+        })
+      }
+})
+
+
+})
+
+// app.get("/check",function(req,res){
+//   res.render("doubtsqa")
+// })
 
 app.listen(3000,function(){
   console.log("server started at port 3000");

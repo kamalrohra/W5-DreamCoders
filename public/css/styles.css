@@ -92,3 +92,8 @@ overflow: auto;
   text-align: center;
   margin-right: 50px;
 }
+
+.compose_btn{
+  background-color: #407370;
+  margin-top: 3%;
+}
