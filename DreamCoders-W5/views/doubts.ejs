@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Clear your doubts!</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <!-- LineIcons -->
+  <link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Ubuntu&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/doubts.css">
+
+<%- include("navbar") -%>
+
+
+  <div class="row">
+    <div class="col-3 left">
+      
+
+    </div>
+
+    <div class="col middle">
+      <div class="questions-holder">
+        <% questions.forEach(function(question){ %>
+
+          <div class="card question-card">
+
+            <div class="card-body" style="padding: 0; margin: 0">
+              <div class="row" style="padding: 0; margin: 0">
+                <div class="col-1 question-info">
+                  <h1 class="q">Q</h1>
+
+                  <h3><%=question.Answer.length%></h3>
+                  <p class="q-info-answers">answers</p>
+                </div>
+                <div class="col question-container">
+                  <p style="padding:1%">author: -<%=question.Q_author%></p>
+                  <button class="tag"><%=question.Question_title%></button>
+                  <h5 class="card-title"> <a href="<%=question.Question %>"><%=question.Question%></a></h5>
+                  <%if(question.Answer.length===0){%>
+
+                    <h6 class="card-subtitle mb-2 text-muted"><a href="<%=question.Question %>">Be the first one to answer</a></h6>
+                  <%}else{%>
+
+                    <h6 class="card-subtitle mb-2 text-muted"><%=question.Answer[0].Solution.substring(0,300)%></h6>
+                  <%}%>
+
+                </div>
+              </div>
+            </div>
+          </div>
+      <%  })%>
+      </div>
+
+    </div>
+    <div class="col-3 right">
+      <div class="add-button-container">
+            <h2>Need help for your question?</h2>
+            <div class="add-button" style="margin-top: 7%"><a href="/compose">+ Add Here </a></div>
+        </div>
+    </div>
+  </div>
+</body>
+
+</html>
