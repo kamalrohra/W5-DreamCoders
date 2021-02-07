@@ -1,0 +1,63 @@
+body{
+    background-color: black;
+    max-width: 100%;
+    align-items: center;
+    color: white;
+}
+
+.navbar-brand {
+    font-family: "Ubuntu";
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.nav-item {
+    padding: 0 18px;
+}
+
+.nav-link {
+    opacity: 0.85;
+    font-size: 17px;
+}
+
+.navbar-nav .nav-item.active .nav-link,
+.navbar-nav .nav-item:hover .nav-link {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+img{
+    border-radius: 50%;
+    width: 70%;
+}
+
+.container{
+    background-color: #1A1A1B;
+    width: 45%;
+    margin-top: 4%;
+
+}
+
+.row{
+    align-items: center;
+    padding: 3%;
+    background-color: #323232;
+    text-align: center;
+}
+
+hr{
+    padding: 0;
+    margin: 0;
+}
+
+h3{
+    font-size: 1.2rem;
+}
+
+h2{
+    font-size: 3rem;
+}
+
+.info{
+    text-align: left;
+}

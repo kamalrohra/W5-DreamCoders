@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Daily Journal</title>
+  <meta charset="utf-8">
+  <  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="css/styles.css">
+
+
+<%- include("navbar") -%>
+
+    <div class="container">
+
+    <h1 style="color:white">Compose</h1>
+    <form class="" action="/compose" method="post">
+      <div class="form-group">
+        <label style="color:white">Tag</label>
+        <input class="form-control" type="text" name="postTitle">
+        <label style="color:white">question</label>
+        <textarea class="form-control" name="postBody" rows="5" cols="30"></textarea>
+      </div>
+      <button class="btn btn-secondary compose_btn" type="submit" name="button">Publish</button>
+    </form>
+
+
+    </div>
+    <div class="footer-padding"></div>
+
+    </div>
+    </body>
+    </html>
