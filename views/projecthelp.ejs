@@ -29,9 +29,9 @@
           <a class="nav-link active" href="/discussions">Discuss</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="/projecthelp">Project Help</a>
+          <a class="nav-link active" href="/projectHelp">Project Help</a>
         </li>
-        </li>
+
         <li class="nav-item">
           <a class="nav-link active" href="/newresources">Resources</a>
         </li>
@@ -44,15 +44,11 @@
     <div class="col-3 left">
       <h2 style="padding: 12% 5% 1%;">Search by categories</h2>
       <div class="categories">
-        <form action="/check" method="post">
-          <button  class=" btn btn-secondary category"  type="submit" name="sorted" value="web development">Web Development</button>
-          <button  class=" btn btn-secondary category"  type="submit" name="sorted" value="app development">App Development</button>
-          <button  class=" btn btn-secondary category"  type="submit" name="sorted" value="webdev">AI / ML</button>
-          <button  class=" btn btn-secondary category"  type="submit" name="sorted" value="webdev">Blockchain</button>
-          <button  class=" btn btn-secondary category"  type="submit" name="sorted" value="webdev">All</button>
-
-        </form>
-
+          <h3 class="category"><a href="">Web Development</a></h3>
+          <h3 class="category"><a href="">App Development</a></h3>
+          <h3 class="category"><a href="">AI / ML</a></h3>
+          <h3 class="category"><a href="">Blockchain</a></h3>
+          <h3 class="category"><a href="">Others</a></h3>
       </div>
 
     </div>
@@ -73,7 +69,6 @@
                 </div>
                 <div class="col question-container">
                   <p style="padding:1%">author: -<%=question.Q_author%></p>
-                  <button class="tag"><%=question.Question_title%></button>
                   <h5 class="card-title"> <a href="<%=question.Question %>"><%=question.Question%></a></h5>
                   <%if(question.Answer.length===0){%>
 
@@ -93,8 +88,8 @@
     </div>
     <div class="col-3 right">
       <div class="add-button-container">
-            <h2>Need help for your question?</h2>
-            <div class="add-button" style="margin-top: 7%"><a href="/compose">+ Add Here </a></div>
+            <h2>Need help for your projects?</h2>
+            <div class="add-button" style="margin-top: 7%"><a href="/composeproject">+ add here</a></div>
         </div>
     </div>
   </div>

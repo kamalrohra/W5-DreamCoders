@@ -65,9 +65,63 @@ a{
 .left, .right {
   background-color: #151212;
   height: 100%;
+  border-radius: 20px;
+  text-align: center;
 }
 
 .col-3{
   width: 20%;
   height: 100vh;
 }
+
+.input {
+  color: grey;
+  border-style: solid;
+  padding: 5px;
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: white;
+
+}
+
+.add-question-card{
+  background-color: #151212;
+  align-items: center;
+  padding: 3% 0;
+  margin: 0;
+}
+
+.add-question-row{
+  padding: 3% 0;
+  margin: 0;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.add-button{
+  font-size: 2rem;
+}
+
+.add-button-container{
+  padding: 15% 5%;
+}
+
+.categories{
+  text-align: left;
+  padding: 5%;
+}
+
+.category{
+  margin: 10% 5%;
+}
+
+.tag{
+  display: inline;
+  background-color: #515151;
+  padding: 1%;
+  border-radius: 10px;
+  outline: 0;
+  box-shadow: none;
+}
+
+button:focus {outline:0;}

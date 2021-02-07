@@ -11,6 +11,28 @@
 </head>
 
 <body>
+  <nav class="navbar navbar-expand-md navbar-dark">
+    <a class="navbar-brand" href="/">NAME</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="/discussions">Discuss</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/projectHelp">Project Help</a>
+        </li>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/newresources">Resources</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
   <div class="row">
     <div class="col-3 left">
@@ -45,22 +67,28 @@
                 <h1 class="a">A</h1>
                 <div class="row">
                   <div class="col">
-                    <h3>3</h3>
+                    <h3><%= answer.Votes%></h3>
                     <p class="a-info-votes">votes</p>
                   </div>
                   <div class="col">
                     <form action="/vote" method="post">
-
+                    <button style="border-radius:50%;margin-bottom:10px;color:white;background-color:#1A1A1B" type="submit" name="button1">▲</button>
                     <input type="hidden" name="forumid" value="<%=id%>">
                     <input type="hidden" name="answerid" value="<%=answer._id%>">
-                    <button style="border-radius:50%;margin-bottom:10px;color:white;background-color:#1A1A1B" type="submit" name="button">▲</button>
-                    <button style="border-radius:50%;color:white;background-color:#1A1A1B" type="submit" name="button">▼</button>
                     </form>
+                    <form action="/votedown" method="post">
+                  <button style="border-radius:50%;color:white;background-color:#1A1A1B" type="submit" name="button2">▼</button>
+                    <input type="hidden" name="forumid" value="<%=id%>">
+                    <input type="hidden" name="answerid" value="<%=answer._id%>">
+                    </form>
+
+
 
                   </div>
                 </div>
               </div>
               <div class="col question-container">
+                <p style="padding:2%">- <%=answer.A_Author%></p>
                 <h6 class="card-subtitle mb-2 text-muted"><%=answer.Solution%></h6>
               </div>
             </div>
